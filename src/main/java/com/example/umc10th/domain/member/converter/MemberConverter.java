@@ -1,0 +1,44 @@
+package com.example.umc10th.domain.member.converter;
+
+import com.example.umc10th.domain.member.dto.MemberReqDTO;
+import com.example.umc10th.domain.member.dto.MemberResDTO;
+import com.example.umc10th.domain.member.entity.Member;
+import com.example.umc10th.domain.member.enums.SocialType;
+
+import java.time.LocalDateTime;
+
+public class MemberConverter {
+
+    public static Member toMember(MemberReqDTO.SignupDTO request) {
+        return Member.builder()
+                .name(request.getName())
+                .password(request.getPassword())
+                .email(request.getEmail())
+                .gender(request.getGender())
+                .birth(request.getBirth())
+                .phoneNumber(request.getPhoneNumber())
+                .nickname(request.getName())
+                .socialType(SocialType.LOCAL)
+                .point(0)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static MemberResDTO.SignupResultDTO toSignupResultDTO(Member member) {
+        return MemberResDTO.SignupResultDTO.builder()
+                .userId(member.getId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .createdAt(member.getCreatedAt())
+                .build();
+    }
+
+    public static MemberResDTO.LoginResultDTO toLoginResultDTO(Member member) {
+        return MemberResDTO.LoginResultDTO.builder()
+                .userId(member.getId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .build();
+    }
+}
